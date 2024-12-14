@@ -9,19 +9,61 @@ const LocationAuthPage = () => {
   const { setLocationInfo } = useLocationStore();
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
+  const getCurrentPosition = () => {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error('브라우저가 위치 정보를 지원하지 않습니다.'));
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          });
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  };
+
   const handleLocationAuth = async () => {
     setIsAuthenticating(true);
     try {
-      // 실제 API 호출 대신 테스트용 지연 시간 추가
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const position = await getCurrentPosition();
+      
+      const response = await fetch('http://192.168.1.58:8000/api/users/location', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': '1'
+        },
+        body: JSON.stringify({
+          latitude: position.latitude,
+          longitude: position.longitude
+        })
+      });
 
-      // 테스트를 위해 항상 성공으로 처리
-      setLocationInfo(true, '테스트 위치');
+      if (!response.ok) {
+        throw new Error('위치 인증에 실패했습니다.');
+      }
+
+      const data = await response.json();
+      setLocationInfo(true, data.address);
       navigate('/');
       
     } catch (error) {
       console.error('위치 인증 중 오류 발생:', error);
-      alert('위치 인증 중 오류가 발생했습니다.');
+      if (error.code === 1) {
+        alert('위치 정보 접근이 거부되었습니다. 설정에서 위치 접근 권한을 허용해주세요.');
+      } else if (error.code === 2) {
+        alert('위치 정보를 가져올 수 없습니다. 다시 시도해주세요.');
+      } else {
+        alert('위치 인증 중 오류가 발생했습니다.');
+      }
     } finally {
       setIsAuthenticating(false);
     }
