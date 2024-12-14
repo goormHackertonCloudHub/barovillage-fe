@@ -20,12 +20,17 @@ const PostDetail = () => {
 
   if (isLoading) return <div>로딩 중...</div>;
   if (!currentPost) return null;
-
   return (
     <div className="max-w-4xl mx-auto p-5">
       <div className="bg-white rounded-lg shadow-md p-8">
         <div className="mb-4">
-        {/* 사진 추가 */}
+          {currentPost.imageUrl && (
+            <img
+              src={currentPost.imageUrl}
+              alt="게시글 이미지"
+              className="w-full h-auto rounded-lg object-cover max-h-[500px]"
+            />
+          )}
         </div>
 
         <div className="flex justify-between items-start mb-6 text-gray-600  border-b border-gray-200 pb-4">
@@ -50,8 +55,8 @@ const PostDetail = () => {
         </div>
         <div className="mt-8 border-t border-gray-200 pt-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg">댓글 {currentPost.comments.length}개</h3>
-            {currentPost.comments.length >= 3 && (
+            <h3 className="text-lg">댓글 {currentPost.commentList.length}개</h3>
+            {currentPost.commentList.length >= 3 && (
               <button 
                 onClick={handleMoreComments}
                 className="text-blue-600 hover:text-blue-800 text-sm font-semibold"
@@ -61,7 +66,7 @@ const PostDetail = () => {
             )}
           </div>
           <div className="space-y-4">
-            {currentPost.comments.slice(0, 2).map(comment => (
+            {currentPost.commentList.slice(0, 2).map(comment => (
               <div key={comment.id} className="bg-gray-50 p-4 rounded-lg">
                 <div className="flex gap-4">
                   <div className="flex-shrink-0">

@@ -33,10 +33,10 @@ const MoreComments = () => {
             <Loader2 className="h-6 w-6 animate-spin text-blue-500" />
           </div>
         ) : (
-          currentPost.comments.map(comment => (
+          currentPost.commentList.map(comment => (
             <div key={comment.id} className="bg-gray-50 p-4 rounded-lg">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-semibold">{comment.author}</span>
+                <span className="font-semibold">{comment.username}</span>
                 <span className="text-sm text-gray-500">{comment.date}</span>
               </div>
               <p className="text-gray-600">{comment.content}</p>
