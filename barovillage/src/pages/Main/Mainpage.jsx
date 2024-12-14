@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // 더미 데이터
 const dummyPosts = [
@@ -103,13 +104,20 @@ const dummyPosts = [
 ];
 
 const Mainpage = () => {
+  const navigate = useNavigate();
+
+  const handlePostClick = (postId) => {
+    navigate(`/post/${postId}`);
+  };
+
   return (
     <div className="max-w-7xl mx-auto p-5">
       <div className="flex flex-col gap-6">
         {dummyPosts.map((post) => (
           <div 
             key={post.id} 
-            className="bg-white rounded-lg shadow-md p-6 transition-transform duration-200 hover:-translate-y-2"
+            className="bg-white rounded-lg shadow-md p-6 transition-transform duration-200 hover:-translate-y-2 cursor-pointer"
+            onClick={() => handlePostClick(post.id)}
           >
             <h2 className="text-xl font-bold mb-3 text-gray-800">
               {post.title}
