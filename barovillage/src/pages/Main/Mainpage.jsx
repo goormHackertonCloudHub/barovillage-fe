@@ -1,109 +1,26 @@
-import React from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-// 더미 데이터
-const dummyPosts = [
-  {
-    id: 1,
-    title: "첫 번째 게시글",
-    content: "첫 번째 게시글의 내용입니다.",
-    author: "작성자1",
-    date: "2024-01-15",
-  },
-  {
-    id: 2,
-    title: "두 번째 게시글",
-    content: "두 번째 게시글의 내용입니다.",
-    author: "작성자2",
-    date: "2024-01-16",
-  },
-  {
-    id: 3,
-    title: "세 번째 게시글",
-    content: "세 번째 게시글의 내용입니다.",
-    author: "작성자3",
-    date: "2024-01-17",
-  },
-  {
-    id: 4,
-    title: "네 번째 게시글",
-    content: "네 번째 게시글의 내용입니다.",
-    author: "작성자4",
-    date: "2024-01-18",
-  },
-  {
-    id: 5,
-    title: "다섯 번째 게시글",
-    content: "다섯 번째 게시글의 내용입니다.",
-    author: "작성자5",
-    date: "2024-01-19",
-  },
-  {
-    id: 6,
-    title: "여섯 번째 게시글",
-    content: "여섯 번째 게시글의 내용입니다.",
-    author: "작성자6",
-    date: "2024-01-20",
-  },
-  {
-    id: 7,
-    title: "일곱 번째 게시글",
-    content: "일곱 번째 게시글의 내용입니다.",
-    author: "작성자7",
-    date: "2024-01-21",
-  },
-  {
-    id: 8,
-    title: "여덟 번째 게시글",
-    content: "여덟 번째 게시글의 내용입니다.",
-    author: "작성자8",
-    date: "2024-01-22",
-  },
-  {
-    id: 9,
-    title: "아홉 번째 게시글",
-    content: "아홉 번째 게시글의 내용입니다.",
-    author: "작성자9",
-    date: "2024-01-22",
-  },
-  {
-    id: 10,
-    title: "열 번째 게시글",
-    content: "열 번째 게시글의 내용입니다.",
-    author: "작성자10",
-    date: "2024-01-22",
-  },
-  {
-    id: 11,
-    title: "열한 번째 게시글",
-    content: "열한 번째 게시글의 내용입니다.",
-    author: "작성자11",
-    date: "2024-01-23",
-  },
-  {
-    id: 12,
-    title: "열두 번째 게시글",
-    content: "열두 번째 게시글의 내용입니다.",
-    author: "작성자12",
-    date: "2024-01-24",
-  },
-  {
-    id: 13,
-    title: "열세 번째 게시글",
-    content: "열세 번째 게시글의 내용입니다.",
-    author: "작성자13",
-    date: "2024-01-25",
-  },
-  {
-    id: 14,
-    title: "열네 번째 게시글",
-    content: "열네 번째 게시글의 내용입니다.",
-    author: "작성자14",
-    date: "2024-01-26",
-  },
-];
+import ING_SYMBOL from '../../assets/ING_SYMBOL.png';
+import DONE_SYMBOL from '../../assets/DONE_SYMBOL.png';
+import { getTimeDifference } from '../../utils/timeCalculator';
 
 const Mainpage = () => {
+  const [dummyPosts, setDummyPosts] = useState([]);
+  const userId = 1;
+  useEffect(() => {
+    axios.get(`http://192.168.1.58:8000/api/posts?post_type=GIVE`, {
+      headers: {
+      Authorization: userId
+    }
+  })
+  .then(response => {
+    console.log(response.data["postList"]);
+    setDummyPosts(response.data["postList"]);
+  })
+  .catch(error => console.error('Error fetching posts:', error));
+}, []);
+
   const navigate = useNavigate();
 
   const handlePostClick = (postId) => {
@@ -111,23 +28,37 @@ const Mainpage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-5">
-      <div className="flex flex-col gap-6">
+    <div className="max-w-7xl mx-auto p-1">
+      <div className="flex flex-col gap-4">
         {dummyPosts.map((post) => (
           <div 
             key={post.id} 
-            className="bg-white rounded-lg shadow-md p-6 transition-transform duration-200 hover:-translate-y-2 cursor-pointer"
+            className="flex flex-row justify-between bg-white rounded-lg shadow-md p-6 transition-transform duration-200 hover:-translate-y-2 cursor-pointer"
             onClick={() => handlePostClick(post.id)}
           >
-            <h2 className="text-xl font-bold mb-3 text-gray-800">
-              {post.title}
-            </h2>
-            <p className="text-gray-600 mb-4">
-              {post.content}
-            </p>
-            <div className="flex justify-between items-center text-sm text-gray-500">
-              <span>{post.author}</span>
-              <span>{post.date}</span>
+            <img 
+              src={post.imageUrl}
+              alt={post.title}
+              className="w-1/3 h-48 object-cover rounded-lg"
+              style={{ width: '120px', height: '120px' }}
+            />
+            <div className="flex flex-col w-[200px] gap-2 h-full justify-between items-start pt-2">
+              <div className="text-gray-800">
+                <img 
+                  src={post.status === "ING" ? ING_SYMBOL : DONE_SYMBOL}
+                  alt={post.status}
+                  className="w-6 h-6"
+                  style={{ width: '77px', height: '25px' }}
+                />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-gray-800">
+                  {post.title}
+                </h2>
+              </div>
+              <div className="flex gap-2 text-gray-500 w-full justify-end">
+                <span>{getTimeDifference(post.createAt)}</span>
+              </div>
             </div>
           </div>
         ))}
