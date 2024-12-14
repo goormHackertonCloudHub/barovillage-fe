@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLocationStore from '../../store/locationStore';
 import KakaoMap from '../../components/\bKakaoMap';
+import locationAuthBanner from '../../assets/location_auth_banner.png';
 
 const LocationAuthPage = () => {
   const navigate = useNavigate();
@@ -27,15 +28,19 @@ const LocationAuthPage = () => {
   };
 
   return (
-    <div className="flex max-h-screen flex-col items-center justify-center p-4">
-      <h1 className="text-2xl font-bold mb-6">위치 인증</h1>
-      <p className="text-gray-600 mb-8 text-center">
-        서비스 이용을 위해 현재 위치 인증이 필요합니다.
-      </p>
+    <div className="flex max-h-screen flex-col items-center justify-center">
+      <img 
+        src={locationAuthBanner} 
+        alt="위치 인증 배너" 
+        className="w-full max-w-md"
+      />
     
       <div className="mb-8 rounded-lg overflow-hidden shadow-lg">
         <KakaoMap />
       </div>
+      <p className="text-gray-600 mb-8 text-center">
+        서비스 이용을 위해 현재 위치 인증이 필요합니다.
+      </p>
       <button
         onClick={handleLocationAuth}
         disabled={isAuthenticating}
