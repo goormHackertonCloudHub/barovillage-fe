@@ -3,7 +3,7 @@ import { BrowserRouter, Outlet, Route, Router, Routes } from "react-router-dom";
 import "./App.css";
 
 import Header from "./components/Header";
-// import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import MainPage from "./pages/Main/MainPage";
 
 const PageLayout = () => (
@@ -12,7 +12,7 @@ const PageLayout = () => (
     <div className="flex-1 overflow-y-auto">
       <Outlet />
     </div>
-    {/* <Navbar /> */}
+    <Navbar />
   </div>
 );
 
