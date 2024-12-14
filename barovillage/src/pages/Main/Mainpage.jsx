@@ -31,13 +31,6 @@ const dummyPosts = [
     date: "2024-01-18",
   },
   {
-    id: 4,
-    title: "네 번째 게시글",
-    content: "네 번째 게시글의 내용입니다.",
-    author: "작성자4",
-    date: "2024-01-18",
-  },
-  {
     id: 5,
     title: "다섯 번째 게시글",
     content: "다섯 번째 게시글의 내용입니다.",
@@ -60,24 +53,10 @@ const dummyPosts = [
   },
   {
     id: 8,
-    title: "네 번째 게시글",
-    content: "네 번째 게시글의 내용입니다.",
-    author: "작성자4",
-    date: "2024-01-18",
-  },
-  {
-    id: 8,
-    title: "네 번째 게시글",
-    content: "네 번째 게시글의 내용입니다.",
-    author: "작성자4",
-    date: "2024-01-18",
-  },
-  {
-    id: 8,
-    title: "네 번째 게시글",
-    content: "네 번째 게시글의 내용입니다.",
-    author: "작성자4",
-    date: "2024-01-18",
+    title: "여덟 번째 게시글",
+    content: "여덟 번째 게시글의 내용입니다.",
+    author: "작성자8",
+    date: "2024-01-22",
   },
   {
     id: 9,
