@@ -1,14 +1,19 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { usePostStore } from '../../store/postStore';
 
 const PostDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { currentPost, isLoading, fetchPost } = usePostStore();
 
   useEffect(() => {
     fetchPost(id);
   }, [id]);
+
+  const handleMoreComments = () => {
+    navigate(`/post/${id}/comments`);
+  };
 
   if (isLoading) return <div>로딩 중...</div>;
   if (!currentPost) return null;
@@ -37,9 +42,19 @@ const PostDetail = () => {
         </div>
 
         <div className="mt-8 border-t border-gray-200 pt-6">
-          <h3 className="text-lg font-bold mb-4">댓글 {currentPost.comments.length}개</h3>
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-bold">댓글 {currentPost.comments.length}개</h3>
+            {currentPost.comments.length >= 3 && (
+              <button 
+                onClick={handleMoreComments}
+                className="text-blue-600 hover:text-blue-800 text-sm font-semibold"
+              >
+                댓글 더보기
+              </button>
+            )}
+          </div>
           <div className="space-y-4">
-            {currentPost.comments.map(comment => (
+            {currentPost.comments.slice(0, 2).map(comment => (
               <div key={comment.id} className="bg-gray-50 p-4 rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-semibold">{comment.author}</span>
