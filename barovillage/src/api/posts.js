@@ -13,7 +13,10 @@ const dummyPostDetails = [
     category: "일반",
     comments: [
       { id: 1, author: "댓글작성자1", content: "좋은 글이네요!" },
-      { id: 2, author: "댓글작성자2", content: "감사합니다." }
+      { id: 2, author: "댓글작성자2", content: "감사합니다." },
+      { id: 3, author: "댓글작성자3", content: "좋아요!" },
+      { id: 4, author: "댓글작성자4", content: "좋아요!" },
+      { id: 5, author: "댓글작성자5", content: "좋아요!" },
     ]
   },
   {
