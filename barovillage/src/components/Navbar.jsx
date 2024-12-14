@@ -6,8 +6,8 @@ export default function Navbar() {
   const location = useLocation();
 
   return (
-    <nav className="bottom-0 left-0 right-0 bg-black">
-      <div className="flex justify-around items-center h-14">
+    <nav className="bottom-0 left-0 right-0">
+      <div className="flex justify-around items-center h-14 border-t border-gray-200">
         <button
           onClick={() => navigate('/')}
           className={`flex-1 py-2 text-center ${
@@ -16,17 +16,7 @@ export default function Navbar() {
               : 'text-gray-500'
           }`}
         >
-          Main
-        </button>
-        <button
-          onClick={() => navigate('/mypage')}
-          className={`flex-1 py-2 text-center ${
-            location.pathname === '/mypage' 
-              ? 'text-blue-500 font-bold' 
-              : 'text-gray-500'
-          }`}
-        >
-          My page
+          홈
         </button>
       </div>
     </nav>
