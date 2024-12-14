@@ -17,14 +17,14 @@ export default function Header() {
     <header className="h-14 bg-white flex items-center px-4 shadow-sm">
       {isMainPage ? (
         <button 
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 active:bg-blue-700 transition-colors"
+          className="px-4 py-2 text-gray-700 rounded-md hover:text-gray-900 transition-colors"
         >
           마곡동
         </button>
       ) : (
         <button 
           onClick={goBack}
-          className="p-2 hover:bg-gray-100 active:bg-gray-200 rounded-full transition-colors"
+          className="p-2 rounded-full transition-colors"
         >
           <FontAwesomeIcon 
             icon={faAngleLeft} 
