@@ -4,22 +4,28 @@ import { useNavigate } from 'react-router-dom';
 import ING_SYMBOL from '../../assets/ING_SYMBOL.png';
 import DONE_SYMBOL from '../../assets/DONE_SYMBOL.png';
 import { getTimeDifference } from '../../utils/timeCalculator';
+import PostTypeSwitch from '../../components/PostTypeSwitch';
 
 const Mainpage = () => {
   const [dummyPosts, setDummyPosts] = useState([]);
+  const [activeTab, setActiveTab] = useState('GIVE');
   const userId = 1;
+
   useEffect(() => {
-    axios.get(`http://192.168.1.58:8000/api/posts?post_type=GIVE`, {
+    fetchPosts(activeTab);
+  }, [activeTab]);
+
+  const fetchPosts = (postType) => {
+    axios.get(`http://192.168.1.58:8000/api/posts?post_type=${postType}`, {
       headers: {
-      Authorization: userId
-    }
-  })
-  .then(response => {
-    console.log(response.data["postList"]);
-    setDummyPosts(response.data["postList"]);
-  })
-  .catch(error => console.error('Error fetching posts:', error));
-}, []);
+        Authorization: userId
+      }
+    })
+    .then(response => {
+      setDummyPosts(response.data["postList"]);
+    })
+    .catch(error => console.error('Error fetching posts:', error));
+  };
 
   const navigate = useNavigate();
 
@@ -29,6 +35,10 @@ const Mainpage = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-1">
+      <PostTypeSwitch 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab}
+      />
       <div className="flex flex-col gap-4">
         {dummyPosts.map((post) => (
           <div 
