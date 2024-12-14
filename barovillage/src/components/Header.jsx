@@ -2,6 +2,7 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import mainLogo from '../assets/main_logo.png';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -16,11 +17,13 @@ export default function Header() {
   return (
     <header className="h-14 bg-white flex items-center px-4 shadow-sm">
       {isMainPage ? (
-        <button 
-          className="px-4 py-2 text-gray-700 rounded-md hover:text-gray-900 transition-colors"
-        >
-          마곡동
-        </button>
+        <div className="flex items-center gap-2 cursor-pointer">
+          <img 
+            src={ mainLogo }
+            alt="바로빌리지"
+            className="h-8"
+          />
+        </div>
       ) : (
         <button 
           onClick={goBack}
