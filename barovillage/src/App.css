@@ -1,3 +1,7 @@
+body {
+  font-family: 'Pretendard';
+}
+
 #root {
   max-width: 390px; 
   text-align: center;
