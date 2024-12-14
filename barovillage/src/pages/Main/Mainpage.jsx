@@ -32,9 +32,9 @@ const Mainpage = () => {
       <div className="flex flex-col gap-4">
         {dummyPosts.map((post) => (
           <div 
-            key={post.id} 
+            key={post.postId} 
             className="flex flex-row justify-between bg-white rounded-lg shadow-md p-6 transition-transform duration-200 hover:-translate-y-2 cursor-pointer"
-            onClick={() => handlePostClick(post.id)}
+            onClick={() => handlePostClick(post.postId)}
           >
             <img 
               src={post.imageUrl}
