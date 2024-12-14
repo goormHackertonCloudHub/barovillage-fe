@@ -1,10 +1,15 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ING_SYMBOL from '../../assets/ING_SYMBOL.png';
-import DONE_SYMBOL from '../../assets/DONE_SYMBOL.png';
+import GIVE_ING_SYMBOL from '../../assets/GIVE_ING_SYMBOL.png';
+import GIVE_DONE_SYMBOL from '../../assets/GIVE_DONE_SYMBOL.png';
+import TAKE_ING_SYMBOL from '../../assets/TAKE_ING_SYMBOL.png';
+import TAKE_DONE_SYMBOL from '../../assets/TAKE_DONE_SYMBOL.png';
 import { getTimeDifference } from '../../utils/timeCalculator';
 import PostTypeSwitch from '../../components/PostTypeSwitch';
+
+import MYPAGE_SYMBOL from '../../assets/MyPage.png';
+import useLocationStore from '../../store/locationStore';
 
 const Mainpage = () => {
   const [dummyPosts, setDummyPosts] = useState([]);
@@ -22,6 +27,7 @@ const Mainpage = () => {
       }
     })
     .then(response => {
+      console.log("메인페이지 데이터",response.data);
       setDummyPosts(response.data["postList"]);
     })
     .catch(error => console.error('Error fetching posts:', error));
@@ -35,6 +41,17 @@ const Mainpage = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-1">
+      <div className="flex justify-between items-center mb-4">
+        <div className="text-lg font-semibold text-gray-700">
+          {useLocationStore.isLocationVerified ? useLocationStore.locationName : '위치를 설정해주세요'}
+        </div>
+        <img 
+          src={MYPAGE_SYMBOL}
+          alt="마이페이지"
+          className="w-6 h-6 cursor-pointer hover:opacity-80"
+          onClick={() => navigate('/mypage')}
+        />
+      </div>
       <PostTypeSwitch 
         activeTab={activeTab} 
         onTabChange={setActiveTab}
@@ -43,7 +60,7 @@ const Mainpage = () => {
         {dummyPosts.map((post) => (
           <div 
             key={post.postId} 
-            className="flex flex-row justify-between bg-white rounded-lg shadow-md p-6 transition-transform duration-200 hover:-translate-y-2 cursor-pointer"
+            className="flex flex-row justify-between bg-white rounded-lg p-6 transition-transform duration-200 hover:-translate-y-2 cursor-pointer"
             onClick={() => handlePostClick(post.postId)}
           >
             <img 
@@ -55,7 +72,11 @@ const Mainpage = () => {
             <div className="flex flex-col w-[200px] gap-2 h-full justify-between items-start pt-2">
               <div className="text-gray-800">
                 <img 
-                  src={post.status === "ING" ? ING_SYMBOL : DONE_SYMBOL}
+                  src={
+                    activeTab === 'GIVE' 
+                      ? (post.status === "ING" ? GIVE_ING_SYMBOL : GIVE_DONE_SYMBOL)
+                      : (post.status === "ING" ? TAKE_ING_SYMBOL : TAKE_DONE_SYMBOL)
+                  }
                   alt={post.status}
                   className="w-6 h-6"
                   style={{ width: '77px', height: '25px' }}
