@@ -48,8 +48,8 @@ const LocationAuthPage = () => {
         <div className="flex justify-between">
           <p>인증에 어려움이 있으신가요?</p>
           <span>&gt;</span>
-  </div>
-</div>
+        </div>
+      </div>
       <div className="flex justify-center w-full">
         <button
           onClick={handleLocationAuth}
