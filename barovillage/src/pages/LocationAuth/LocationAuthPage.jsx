@@ -56,7 +56,7 @@ const LocationAuthPage = () => {
           disabled={isAuthenticating}
           className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 w-[300px] rounded-lg disabled:bg-gray-400"
         >
-          {isAuthenticating ? '인증 중...' : '위치 인증하기'}
+          {isAuthenticating ? '인증 중...' : '위치 인증 후 입장하기'}
         </button>
       </div>
     </div>
