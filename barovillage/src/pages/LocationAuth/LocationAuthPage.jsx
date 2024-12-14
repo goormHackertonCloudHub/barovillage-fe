@@ -28,26 +28,37 @@ const LocationAuthPage = () => {
   };
 
   return (
-    <div className="flex max-h-screen flex-col items-center justify-center">
+    <div className="flex max-h-screen w-[390px] flex-col items-start justify-center">
       <img 
         src={locationAuthBanner} 
-        alt="위치 인증 배너" 
+        alt="위치 인증 배너"
         className="w-full max-w-md"
       />
     
-      <div className="mb-8 rounded-lg overflow-hidden shadow-lg">
+      <div className="mb-8 rounded-lg shadow-lg">
         <KakaoMap />
       </div>
-      <p className="text-gray-600 mb-8 text-center">
-        서비스 이용을 위해 현재 위치 인증이 필요합니다.
-      </p>
-      <button
-        onClick={handleLocationAuth}
-        disabled={isAuthenticating}
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg disabled:bg-gray-400"
-      >
-        {isAuthenticating ? '인증 중...' : '위치 인증하기'}
-      </button>
+      <div className="text-gray-600 mb-8 px-4 w-full">
+        <p className="text-start">현재 위치 인증이 필요합니다.</p>
+        <hr className="my-4 border-gray-300" />
+        <div className="flex justify-between">
+          <p>왜 지역을 인증할까요?</p>
+          <span>&gt;</span>
+        </div>
+        <div className="flex justify-between">
+          <p>인증에 어려움이 있으신가요?</p>
+          <span>&gt;</span>
+  </div>
+</div>
+      <div className="flex justify-center w-full">
+        <button
+          onClick={handleLocationAuth}
+          disabled={isAuthenticating}
+          className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 w-[300px] rounded-lg disabled:bg-gray-400"
+        >
+          {isAuthenticating ? '인증 중...' : '위치 인증하기'}
+        </button>
+      </div>
     </div>
   );
 };
