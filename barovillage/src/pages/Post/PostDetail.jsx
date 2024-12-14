@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { usePostStore } from '../../store/postStore';
-import ING_SYMBOL from '../../assets/ING_SYMBOL.png';
-import DONE_SYMBOL from '../../assets/DONE_SYMBOL.png';
+import GIVE_ING_SYMBOL from '../../assets/GIVE_ING_SYMBOL.png';
+import GIVE_DONE_SYMBOL from '../../assets/GIVE_DONE_SYMBOL.png';
+import TAKE_ING_SYMBOL from '../../assets/TAKE_ING_SYMBOL.png';
+import TAKE_DONE_SYMBOL from '../../assets/TAKE_DONE_SYMBOL.png';
 import { getTimeDifference } from '../../utils/timeCalculator';
 
 const PostDetail = () => {
@@ -18,12 +20,20 @@ const PostDetail = () => {
     navigate(`/post/${id}/comments`);
   };
 
+  const getStatusImage = () => {
+    if (currentPost.postType === 'GIVE') {
+      return currentPost.status === "ING" ? GIVE_ING_SYMBOL : GIVE_DONE_SYMBOL;
+    } else {
+      return currentPost.status === "ING" ? TAKE_ING_SYMBOL : TAKE_DONE_SYMBOL;
+    }
+  };
+
   if (isLoading) return <div>로딩 중...</div>;
   if (!currentPost) return null;
   return (
     <div className="max-w-4xl mx-auto p-5">
       <div className="bg-white rounded-lg shadow-md p-8">
-        <div className="mb-4">
+        <div className="mb-3">
           {currentPost.imageUrl && (
             <img
               src={currentPost.imageUrl}
@@ -33,18 +43,23 @@ const PostDetail = () => {
           )}
         </div>
 
-        <div className="flex justify-between items-start mb-6 text-gray-600  border-b border-gray-200 pb-4">
+        <div className="flex justify-between items-start mb-4 text-gray-600  border-b border-gray-200 pb-4">
+          <div className="flex flex-row">
+          <div>
+            <img src={currentPost.profileImageUrl} alt="프로필 이미지" className="w-10 mt-2 h-10 rounded-full" />
+          </div>
           <div className="flex flex-col">
             <h1 className="text-xl font-bold mt-2">{currentPost.title}</h1>
             <div className="flex text-xs items-center gap-4">
               <span>{ getTimeDifference(currentPost.date) }</span>
+              </div>
             </div>
           </div>
           <div className="flex items-center justify-center gap-4">
             <img
-              src={currentPost.status === "ING" ? ING_SYMBOL : DONE_SYMBOL}
+              src={getStatusImage()}
               alt={currentPost.status}
-              className="w-6 h-6 my-auto"
+              className="w-6 mt-4 h-6 my-auto"
               style={{ width: '77px', height: '25px' }}
             />
           </div>
