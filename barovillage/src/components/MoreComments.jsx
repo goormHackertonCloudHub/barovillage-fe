@@ -47,11 +47,19 @@ const MoreComments = () => {
               <>
                 {currentPost.commentList.map(comment => (
                   <div key={comment.id} className="bg-gray-50 p-4 rounded-lg">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-semibold">{comment.username}</span>
-                      <span className="text-sm text-gray-500">{comment.date}</span>
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0">
+                        <img 
+                          src={comment.userProfileImageUrl} 
+                          alt="프로필 이미지" 
+                          className="w-10 h-10 rounded-full"
+                        />
+                      </div>
+                      <div className="flex flex-col items-start">
+                        <div className="font-semibold mb-1">{comment.username}</div>
+                        <p className="text-gray-600">{comment.content}</p>
+                      </div>
                     </div>
-                    <p className="text-gray-600">{comment.content}</p>
                   </div>
                 ))}
                 

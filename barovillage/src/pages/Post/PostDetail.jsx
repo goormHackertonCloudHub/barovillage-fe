@@ -97,7 +97,7 @@ const PostDetail = () => {
                     />
                   </div>
                   <div className="flex flex-col items-start">
-                    <div className="font-semibold mb-1">{comment.author}</div>
+                    <div className="font-semibold mb-1">{comment.username}</div>
                     <p className="text-gray-600">{comment.content}</p>
                   </div>
                 </div>
