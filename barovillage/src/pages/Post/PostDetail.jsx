@@ -7,6 +7,7 @@ import TAKE_ING_SYMBOL from '../../assets/TAKE_ING_SYMBOL.png';
 import TAKE_DONE_SYMBOL from '../../assets/TAKE_DONE_SYMBOL.png';
 import { getTimeDifference } from '../../utils/timeCalculator';
 import CommentForm from '../../components/CommentForm';
+import axios from 'axios';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -33,12 +34,37 @@ const PostDetail = () => {
     await fetchPost(id);
   };
 
+  const handleComplete = async () => {
+    try {
+      await axios.post(`http://192.168.1.58:8000/api/posts/status`, 
+        { postId: id, status: "DONE" },
+        { 
+          headers: {
+            'Authorization': '1'
+          }
+        }
+      );
+      await fetchPost(id);
+    } catch (error) {
+      console.error('대여완료 처리 중 오류 발생:', error);
+      alert('대여완료 처리에 실패했습니다.');
+    }
+  };
+
   if (isLoading) return <div>로딩 중...</div>;
   if (!currentPost) return null;
   return (
-    <div className="max-w-4xl mx-auto p-5">
+    <div className="max-w-4xl mx-auto p-4">
       <div className="bg-white rounded-lg shadow-md p-8">
         <div className="mb-3">
+          {currentPost.userId === 1 && currentPost.status === 'ING' && (
+            <button
+              onClick={handleComplete}
+              className="bg-purple-500 hover:bg-purple-600 text-white px-3 mb-2 rounded-md text-sm float-right"
+              >
+                대여 완료
+              </button>
+            )}
           {currentPost.imageUrl && (
             <img
               src={currentPost.imageUrl}
@@ -49,24 +75,26 @@ const PostDetail = () => {
         </div>
 
         <div className="flex justify-between items-start mb-4 text-gray-600  border-b border-gray-200 pb-4">
+        
           <div className="flex flex-row">
           <div>
             <img src={currentPost.profileImageUrl} alt="프로필 이미지" className="w-10 mt-2 h-10 rounded-full" />
           </div>
           <div className="flex flex-col">
+          
             <h1 className="text-xl font-bold mt-2 tracking-tight">{currentPost.title}</h1>
             <div className="flex text-xs items-center gap-4">
               <span>{ getTimeDifference(currentPost.createAt) }</span>
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex flex-col items-center justify-center gap-4">
             <img
               src={getStatusImage()}
               alt={currentPost.status}
               className="w-6 mt-4 h-6 my-auto"
               style={{ width: '77px', height: '25px' }}
-            />
+            />            
           </div>
         </div>
 
