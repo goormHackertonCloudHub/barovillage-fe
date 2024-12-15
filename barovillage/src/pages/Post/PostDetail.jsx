@@ -54,9 +54,9 @@ const PostDetail = () => {
             <img src={currentPost.profileImageUrl} alt="프로필 이미지" className="w-10 mt-2 h-10 rounded-full" />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-xl font-bold mt-2">{currentPost.title}</h1>
+            <h1 className="text-xl font-bold mt-2 tracking-tight">{currentPost.title}</h1>
             <div className="flex text-xs items-center gap-4">
-              <span>{ getTimeDifference(currentPost.date) }</span>
+              <span>{ getTimeDifference(currentPost.createAt) }</span>
               </div>
             </div>
           </div>
@@ -91,7 +91,7 @@ const PostDetail = () => {
                 <div className="flex gap-4">
                   <div className="flex-shrink-0">
                     <img 
-                      src={comment.profileImageUrl} 
+                      src={comment.userProfileImageUrl} 
                       alt="프로필 이미지" 
                       className="w-10 h-10 rounded-full"
                     />
