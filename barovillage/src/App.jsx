@@ -8,6 +8,7 @@ import PostDetail from "./pages/Post/PostDetail";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LocationAuthPage from "./pages/LocationAuth/LocationAuthPage";
 import MoreComments from "./components/MoreComments";
+import PostCreate from "./components/PostCreate";
 
 const PageLayout = () => (
   <div className="w-[390px] h-[844px] mx-auto bg-gray-100 flex flex-col">
@@ -29,7 +30,7 @@ function App() {
             <Route path="/location-auth" element={<LocationAuthPage />} />
             <Route path="/post/:id" element={<PostDetail />} />
             <Route path="/post/:id/comments" element={<MoreComments />} />
-
+            <Route path="/post/create" element={<PostCreate />} />
           {/* <Route path="/page1" element={<Page1 />} />
           <Route path="/page2" element={<Page2 />} />
           <Route path="/page3" element={<Page3 />} />
