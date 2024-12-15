@@ -15,6 +15,7 @@ const Mainpage = () => {
   const [dummyPosts, setDummyPosts] = useState([]);
   const [activeTab, setActiveTab] = useState('GIVE');
   const userId = 1;
+  const { locationName, isLocationVerified } = useLocationStore();
 
   useEffect(() => {
     fetchPosts(activeTab);
@@ -38,12 +39,12 @@ const Mainpage = () => {
   const handlePostClick = (postId) => {
     navigate(`/post/${postId}`);
   };
-
+  
   return (
     <div className="max-w-7xl mx-auto p-1">
-      <div className="flex justify-between items-center mb-4">
-        <div className="text-lg font-semibold text-gray-700">
-          {useLocationStore.isLocationVerified ? useLocationStore.locationName : '위치를 설정해주세요'}
+      <div className="flex justify-between items-center mb-4 px-4 pt-3">
+        <div className="text-2xl font-semibold text-gray-700">
+          {isLocationVerified ? locationName : '위치를 설정해주세요'}
         </div>
         <img 
           src={MYPAGE_SYMBOL}
