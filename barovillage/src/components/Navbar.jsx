@@ -6,6 +6,11 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // location-auth 경로에서는 Navbar를 렌더링하지 않음
+  if (location.pathname === '/location-auth') {
+    return null;
+  }
+
   return (
     <nav className="bottom-0 left-0 right-0">
       <div className="flex justify-around items-center p-3 h-14 border-t border-gray-200">
@@ -27,7 +32,7 @@ export default function Navbar() {
           onClick={() => navigate('/post/create')}
           className={`flex-1 py-2 text-center ${
             location.pathname === '/post/create'
-              ? 'text-blue-500 font-bold' 
+              ? 'text-gray-500 font-bold' 
               : 'text-gray-500'
           }`}
         >

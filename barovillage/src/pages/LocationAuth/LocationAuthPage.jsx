@@ -52,7 +52,8 @@ const LocationAuthPage = () => {
       }
 
       const data = await response.json();
-      setLocationInfo(true, data.address);
+      setLocationInfo(true, data.regionName);
+      console.log(data);
       navigate('/');
       
     } catch (error) {
@@ -80,7 +81,7 @@ const LocationAuthPage = () => {
       <div className="mb-8 rounded-lg shadow-lg">
         <KakaoMap />
       </div>
-      <div className="text-gray-600 mb-8 px-4 w-full">
+      <div className="text-gray-600 mb-8 mt-4 px-4 w-full">
         <p className="text-start">현재 위치 인증이 필요합니다.</p>
         <hr className="my-4 border-gray-300" />
         <div className="flex justify-between">
@@ -96,7 +97,7 @@ const LocationAuthPage = () => {
         <button
           onClick={handleLocationAuth}
           disabled={isAuthenticating}
-          className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 w-[300px] rounded-lg disabled:bg-gray-400"
+          className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 w-[360px] h-[50px] rounded-lg disabled:bg-gray-400"
         >
           {isAuthenticating ? '인증 중...' : '위치 인증 후 입장하기'}
         </button>
