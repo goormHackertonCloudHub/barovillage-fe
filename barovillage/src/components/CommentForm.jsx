@@ -8,10 +8,16 @@ const CommentForm = ({ postId, onCommentAdded }) => {
     e.preventDefault();
     
     try {
-      const response = await axios.post('/api/comments', {
-        postId: postId,
-        content: newComment
-      });
+      const response = await axios.post(`http://192.168.1.58:8000/api/posts/${postId}/comments`, 
+        {
+          content: newComment
+        },
+        {
+          headers: {
+            'Authorization': '1'
+          }
+        }
+      );
 
       if (response.status === 201) {
         setNewComment('');

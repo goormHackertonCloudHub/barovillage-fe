@@ -19,6 +19,14 @@ const MoreComments = () => {
     }
   };
 
+  const handleCommentAdded = async (newComment) => {
+    try {
+      await handleRefresh();
+    } catch (error) {
+      console.error('댓글 추가 후 새로고침 실패:', error);
+    }
+  };
+
   const handleSubmitComment = (comment) => {
     // 여기에 댓글 제출 로직 추가
     console.log('새 댓글:', comment);
@@ -47,7 +55,10 @@ const MoreComments = () => {
                   </div>
                 ))}
                 
-                <CommentForm onSubmit={handleSubmitComment} />
+                <CommentForm 
+                postId={id}
+                onCommentAdded={handleCommentAdded}
+                onSubmit={handleSubmitComment} />
               </>
             )}
           </div>

@@ -29,8 +29,8 @@ const PostDetail = () => {
     }
   };
 
-  const handleCommentSubmit = (commentText) => {
-    console.log('새 댓글:', commentText);
+  const handleCommentAdded = async (newComment) => {
+    await fetchPost(id);
   };
 
   if (isLoading) return <div>로딩 중...</div>;
@@ -106,7 +106,10 @@ const PostDetail = () => {
           </div>
           
           {currentPost.commentList.length < 3 && (
-            <CommentForm onSubmit={handleCommentSubmit} />
+            <CommentForm 
+              postId={id}
+              onCommentAdded={handleCommentAdded}
+            />
           )}
         </div>
       </div>
