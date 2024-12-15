@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { usePostStore } from '../store/postStore';
 import { useParams } from 'react-router-dom';
 import { Loader2 } from "lucide-react";
 import ReactPullToRefresh from 'react-pull-to-refresh';
+import CommentForm from './CommentForm';
 
 const MoreComments = () => {
   const { id } = useParams();
   const { currentPost, fetchPost, isLoading } = usePostStore();
-  const [newComment, setNewComment] = useState('');
 
   const handleRefresh = async () => {
     try {
@@ -19,11 +19,9 @@ const MoreComments = () => {
     }
   };
 
-  const handleSubmitComment = (e) => {
-    e.preventDefault();
+  const handleSubmitComment = (comment) => {
     // 여기에 댓글 제출 로직 추가
-    console.log('새 댓글:', newComment);
-    setNewComment(''); // 입력 필드 초기화
+    console.log('새 댓글:', comment);
   };
 
   if (!currentPost) return null;
@@ -49,24 +47,7 @@ const MoreComments = () => {
                   </div>
                 ))}
                 
-                {/* 댓글 입력 폼 */}
-                <form onSubmit={handleSubmitComment} className="mt-6">
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={newComment}
-                      onChange={(e) => setNewComment(e.target.value)}
-                      placeholder="댓글을 입력하세요"
-                      className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                    />
-                    <button
-                      type="submit"
-                      className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                    >
-                      등록
-                    </button>
-                  </div>
-                </form>
+                <CommentForm onSubmit={handleSubmitComment} />
               </>
             )}
           </div>

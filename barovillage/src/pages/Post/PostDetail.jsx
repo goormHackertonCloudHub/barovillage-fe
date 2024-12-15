@@ -6,6 +6,7 @@ import GIVE_DONE_SYMBOL from '../../assets/GIVE_DONE_SYMBOL.png';
 import TAKE_ING_SYMBOL from '../../assets/TAKE_ING_SYMBOL.png';
 import TAKE_DONE_SYMBOL from '../../assets/TAKE_DONE_SYMBOL.png';
 import { getTimeDifference } from '../../utils/timeCalculator';
+import CommentForm from '../../components/CommentForm';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -26,6 +27,10 @@ const PostDetail = () => {
     } else {
       return currentPost.status === "ING" ? TAKE_ING_SYMBOL : TAKE_DONE_SYMBOL;
     }
+  };
+
+  const handleCommentSubmit = (commentText) => {
+    console.log('새 댓글:', commentText);
   };
 
   if (isLoading) return <div>로딩 중...</div>;
@@ -99,6 +104,10 @@ const PostDetail = () => {
               </div>
             ))}
           </div>
+          
+          {currentPost.commentList.length < 3 && (
+            <CommentForm onSubmit={handleCommentSubmit} />
+          )}
         </div>
       </div>
     </div>
